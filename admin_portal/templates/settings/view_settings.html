@@ -1,0 +1,402 @@
+{% extends "base1.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% load extra_filters %}
+
+{% block header %}
+<style type="text/css">
+    .title{
+        width:180px;
+    }
+    .header{
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block content %}
+        <div class="row ">
+            <div class="col-md-12">
+                {% bootstrap_messages messages %}
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h4>System Settings</h4>
+                </div>
+                <div class="col-md-6">
+                    {# <a class="btn btn-success btn-info btn-sm pull-right" href=""><i class="fa fa-eye"></i> View All</a> #}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                    </div>
+                    <div class="box-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#site_settings">Site Settings</a></li>
+                            <li><a data-toggle="tab" href="#email_settings">Email Settings</a></li>
+                            <li><a data-toggle="tab" href="#payment_settings">Payment Settings</a></li>
+                            <li><a data-toggle="tab" href="#sms_settings">Sms Settings</a></li>
+                            <li><a data-toggle="tab" href="#android_settings">Android Settings</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="site_settings" class="tab-pane fade in active">
+                                <div class="col-md-12" style="min-height:35px;">
+                                    <a href="{% url 'edit_site_settings' system_settings.system_id %}" class="btn btn-info pull-right">Change Site Settings</a>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-sripped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="header" colspan="2">Site Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_title"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_title }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_settings"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_description }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_logo"|field_label }}</th>
+                                                    <td class="body">
+                                                        {% if system_settings.system_logo %}<img src="{% get_media_prefix %}{{ system_settings.system_logo }}" style="height:100px;">{% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_favicon"|field_label }}</th>
+                                                    <td class="body">
+                                                        {% if system_settings.system_favicon %}<img src="{% get_media_prefix %}{{ system_settings.system_favicon }}" style="height:100px;">{% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_shareicon"|field_label }}</th>
+                                                    <td class="body">
+                                                        {% if system_settings.system_shareicon %}<img src="{% get_media_prefix %}{{ system_settings.system_shareicon }}" style="height:100px;">{% endif %}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <th class="header" colspan="2">Home Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_home_content"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_home_content|safe }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "testimonials_header"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_testimonials_header }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "video_header"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_video_header }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="header" colspan="2">Contact Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "contact_page_header"|field_label }}</th>
+                                                    <td class="body">
+                                                        {% if system_settings.system_contact_page_header %}<img src="{% get_media_prefix %}{{ system_settings.system_contact_page_header }}" style="height:100px;">{% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "company_name"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_company }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_emails"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_emails }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_mobiles"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_mobiles }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_address"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_address }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_mapcanvas"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_mapcanvas|safe }}</td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <th class="header" colspan="2">Social Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_facebook"|field_label }}</th>
+                                                    <td class="body">
+                                                        <i class="fa fa-facebook"></i>
+                                                        {% if system_settings.system_facebook %}
+                                                        <a href="{{system_settings.system_facebook}}" target="_blank">{{ system_settings.system_facebook }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_twitter"|field_label }}</th>
+                                                    <td class="body">
+                                                        <i class="fa fa-twitter"></i>
+                                                        {% if system_settings.system_twitter and system_settings.system_twitter is not None %}
+                                                        <a href="{{system_settings.system_twitter}}" target="_blank">{{ system_settings.system_twitter }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_youtube"|field_label }}</th>
+                                                    <td class="body">
+                                                        <i class="fa fa-youtube"></i>
+                                                        {% if system_settings.system_youtube and system_settings.system_youtube is not None %}
+                                                        <a href="{{system_settings.system_youtube}}" target="_blank">{{ system_settings.system_youtube }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_google"|field_label }}</th>
+                                                    <td class="body">
+                                                        <i class="fa fa-google-plus"></i>
+                                                        {% if system_settings.system_google %}
+                                                        <a href="{{system_settings.system_google}}" target="_blank">{{ system_settings.system_google }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_insta"|field_label }}</th>
+                                                    <td class="body">
+                                                        <i class="fa fa-instagram"></i>
+                                                        {% if system_settings.system_insta %}
+                                                        <a href="{{system_settings.system_insta}}" target="_blank">{{ system_settings.system_insta }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_linkedin"|field_label }}</th>
+                                                    <td class="body">
+                                                        <i class="fa fa-linkedin"></i>
+                                                        {% if system_settings.system_linkedin %}
+                                                        <a href="{{system_settings.system_linkedin}}" target="_blank">{{ system_settings.system_linkedin }}</a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="header" colspan="2">SEO</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_analytics"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_analytics }}</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="email_settings" class="tab-pane fade">
+                                <div class="col-md-12">
+                                    <a href="{% url 'edit_email_settings' system_settings.system_id %}" class="btn btn-info pull-right">Change Email Settings</a>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-sripped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="header" colspan="2">Email Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_email_smtp"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_email_smtp }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_email_use"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_email_use }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_email_host"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_email_host }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_email_user"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_email_user }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_email_pass"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_email_pass }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_email_port"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_email_port }}</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="payment_settings" class="tab-pane fade">
+                                <div class="col-md-12">
+                                    <a href="{% url 'edit_payment_settings' system_settings.system_id %}" class="btn btn-info pull-right">Change Payment Settings</a>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-sripped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="header" colspan="2">Payment Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_payu_key"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_payu_key }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_payu_salt"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_payu_salt }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_payu_header"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_payu_header }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_payu_url"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_payu_url }}</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="sms_settings" class="tab-pane fade">
+                                <div class="col-md-12">
+                                    <a href="{% url 'edit_sms_settings' system_settings.system_id %}" class="btn btn-info pull-right">Change Message Settings</a>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-sripped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="header" colspan="2">SMS Gateway Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_url"|field_label }}</th>
+                                                    <td class="body"><a href="{{ system_settings.system_sms_url }}" target="_blank">{{ system_settings.system_sms_url }}</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_domain"|field_label }}</th>
+                                                    <td class="body"><a href="{{ system_settings.system_sms_domain }}" target="_blank">{{ system_settings.system_sms_domain }}</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_username"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_username }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_password"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_password }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_senderid"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_senderid }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_username_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_username_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_password_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_password_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_mobile_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_mobile_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_message_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_message_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_senderid_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_senderid_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_type_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_type_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_type_val"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_type_val }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_other_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_other_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_other_val"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_other_val }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_other1_var"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_other1_var }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_sms_other1_val"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_sms_other1_val }}</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="android_settings" class="tab-pane fade">
+                                <div class="col-md-12">
+                                    <a href="{% url 'edit_android_settings' system_settings.system_id %}" class="btn btn-info pull-right">Change Android Settings</a>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-sripped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="header" colspan="2">Android Details</th>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_android_server_key"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_android_server_key }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_android_sender_id"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_android_sender_id }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_android_app_name"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_android_app_name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="title">{{ "system_android_app_url"|field_label }}</th>
+                                                    <td class="body">{{ system_settings.system_android_app_url }}</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('.modal').modal({
+                ready: function(modal, trigger) {
+                    $(modal).find('#ok').attr('href', $(trigger).data('href'));
+                    $(modal).find('#user-name').text($(trigger).data('username'));
+                }
+            });
+            $("#cancel").click(function() {
+                $('#confirm-delete').modal('close');
+            });
+        });
+    </script>
+{% endblock %}

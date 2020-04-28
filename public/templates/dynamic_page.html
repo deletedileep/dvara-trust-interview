@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block head %}
+    <title> {{page_data.page_title}} </title>
+    <meta name="title" content="{{page_data.page_meta_title}}">
+    <meta name="keywords" content="{{page_data.page_meta_keywords}}">
+    <meta name="description" content="{{page_data.page_meta_description}}">
+    <meta name="author" content="Dileep Tananki">
+    
+{% endblock %}
+
+{% block intro %}
+
+<section class="we-offer" {% if page_data.page_header_image %}style="background: url('{{ page_data.page_header_image.url }}') no-repeat center top;background-size: 100% auto;"{% endif %}>
+  <div class="container">
+    <div class="heading">
+      <h1 style="color:black !important;">{{page_data.page_header}}</h1>
+      {% comment %} <div class="divider"></div> {% endcomment %}
+    </div>
+    <div class="row">
+    </div>
+  </div>
+</section>
+<!-- we-offer-close -->
+<div class="our_client">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="span12">
+                    {{page_data.page_content|safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--slider-slick-->
+
+
+  <div class="container" >
+      <div class="row">
+      </div>
+  </div><!-- #intro -->
+
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+    {% block jquery %}
+
+
+    {% endblock %}

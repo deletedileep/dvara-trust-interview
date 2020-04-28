@@ -1,0 +1,52 @@
+{% extends "base1.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+   <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{% url 'system_settings_view' %}" class="btn btn-success pull-right">View Settings</a>
+            </div>
+            <div class="col-md-12">
+                {% bootstrap_messages messages %}
+            </div>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <center><h1>{{view_title}}</h1></center>
+                        <div class="col-md-6 col-md-offset-3">
+                            {% if form_p %}
+                                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                                <form method="POST" enctype="multipart/form-data" class="form" id="exam_form">
+                                    {% csrf_token %}
+                                    {% bootstrap_form form_p %}
+                                    <div class="fixed-action-btn">
+                                        <button type="submit" name="_submit" class="btn btn-success">Submit</button>
+                                        <a href="{% url 'system_settings_view' %}" class="btn btn-danger">Cancel</a>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <p>The Exam could not be found.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#exam_form").validate();
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+        });
+    </script>
+{% endblock %}

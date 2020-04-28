@@ -1,0 +1,97 @@
+.instruction_area span.answered {
+    background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+     /*cursor: pointer; */
+    float: left;
+    font-weight: bold;
+    height: 20px;
+    line-height: 24px;
+   /*  margin: 3px; */
+    text-align: center;
+    width: 25px;
+    background-position: -2px -37px;
+    background-size: 410px;
+}
+.instruction_area span.review {
+    background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+     /*cursor: pointer; */
+    float: left;
+    font-weight: bold;
+    height: 20px;
+    line-height: 24px;
+   /*  margin: 3px; */
+    text-align: center;
+    width: 25px;
+    background-position: -49px -37px;
+    background-size: 410px;
+}
+ .instruction_area span.review_answered {
+	background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+     /*cursor: pointer; */
+    float: left;
+    font-weight: bold;
+    height: 20px;
+    line-height: 19px;
+   /*  margin: 3px; */
+    text-align: center;
+    width: 25px;
+    background-position: -2px -61px;
+    background-size: 416px;
+} 
+.instruction_area span.review_marked_considered {
+	background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent ;
+    color: #FFFFFF ;
+     /*cursor: pointer; */
+    float: left ;
+    font-weight: bold ;
+    height: 20px;
+    /* margin: 3px !important; */
+    text-align: center ;
+    width: 25px;
+    line-height: 24px;
+	background-position: -6px -81px;
+}
+.instruction_area span.review_marked {
+	background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent ;
+    color: #FFFFFF ;
+     /*cursor: pointer ; */
+    float: left ;
+    font-weight: bold ;
+    height: 20px;
+    /* margin: 3px !important; */
+    text-align: center ;
+    width: 25px;
+    line-height: 24px;
+	background-position: -169px -49px;
+}
+.instruction_area span.not_answered {
+	background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+     /*cursor: pointer; */
+    float: left;
+    font-weight: bold;
+    height: 20px;
+    line-height: 24px;
+    /* margin: 3px; */
+    text-align: center;
+    width: 25px;
+    background-position: -27px -37px;
+    background-size: 410px;
+}
+.instruction_area span.not_visited {
+	background: url("../images/questions-sprite.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+     /*cursor: pointer; */
+    float: left;
+    font-weight: bold;
+    height: 20px;
+    line-height: 24px;
+ 	/*  margin: 3px; */
+    text-align: center;
+    width: 25px;
+    background-position: -72px -38px;
+    color: #474747;
+    background-size: 410px;
+}

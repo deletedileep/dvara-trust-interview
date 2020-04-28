@@ -1,0 +1,119 @@
+{% extends "base1.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+        <div class="row ">
+            <div class="col-md-12">
+                {% bootstrap_messages messages %}
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h4>Menubars</h4>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-success btn-info btn-sm pull-right" href="{% url 'add_menubar_link' %}"><i class="fa fa-plus"></i> Add Menubar</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="table-responsive">
+
+                            {% if menubars_data %}
+                                <table id="datatable" class="table table-sripped table-bordered">
+                                    <thead>
+                                        <th>S.No.</th>
+                                        <th>Parent</th>
+                                        <th>Name</th>
+                                        <th>Title</th>
+                                        <th>Link</th>
+                                        <th>Class</th>
+                                        <th>Order</th>
+                                        <th>Status</th>
+                                        <th style="padding-left:20px">Actions</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for p in menubars_data %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ p.parent_id }}</td>
+                                                <td>{{ p.name }}</td>
+                                                <td>{{ p.title }}</td>
+                                                <td>{{ p.link }}</td>
+                                                <td>{{ p.item_class }}</td>
+                                                <td>{{ p.order }}</td>
+                                                <td>
+                                                    {# {{ p.status|yesno:"Active,Inactive" }} #}
+                                                    <a href="javascript:void(0)" class="status" id="{{p.pk}}" >
+                                                        <span class="btn btn-sm {{ p.status|yesno:"btn-success,btn-warning"}}" id="span_{{p.pk}}">{{ p.status|yesno:"Active,Deactive"}}</span>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'edit_menubar_link' p.pk %}" class="btn btn-sm btn-info btn-flat waves-effect">
+                                                        <i class="material-icons blue-text">Edit</i>
+                                                    </a>
+                                                    <a class="btn btn-sm btn-danger btn-flat waves-effect" href="{% url 'delete_menubar_link' p.pk %}" data-username="{{ p.menubar_name }}" onclick="return confirm('Are you Sure!');">
+                                                        <i class="material-icons blue-text">Delete</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p>No Menubars are available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <!-- delete modal -->
+    <div id="confirm-delete" class="modal">
+        <div class="modal-content">
+            <h4>Delete Payment Term</h4>
+            <p>Are you sure you want to delete the payment term <strong id="user-name"></strong>?</p>
+        </div>
+        <div class="modal-footer">
+            <a id="ok" href="" class="btn btn-info btn-sm">Agree</a>
+            <a id="cancel" class="btn waves-effect lmar">Cancel</a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $(document.body).on('click', '.status' ,function(){
+                var id=$(this).attr('id');
+                var status=$(this).find('span').text();
+                var text = status=='Active'?'Deactive':'Active';
+                status=status=='Active'?0:1;
+                $.ajax({
+                    type:'GET',
+                    data:{id:id,status:status},
+                    url:'{% url 'ajax_active' %}?approve_menubar',
+                    dataType:'json',
+                    success:function(data)
+                    {
+                        {% comment %} console.log(data) {% endcomment %}
+                        if(data.status==true)
+                        {
+                                //location.reload();
+                                $('#span_'+id).text(text);
+                                if(status == 0){
+                                    $('#span_'+id).removeClass( "btn-success" ).addClass( "btn-warning" );
+                                }else{
+                                    $('#span_'+id).removeClass( "btn-warning" ).addClass( "btn-success" );
+                                }
+                        }else{
+                                location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

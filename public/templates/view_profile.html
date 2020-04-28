@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block head %}
+    <title>View Profile - {{system_settings.system_title}}</title>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid pt-3 mb-5">
+    <div class="row">
+            <div class="col-md-12">
+                {% bootstrap_messages messages %}
+            </div>
+
+
+            <div class="col-md-2 hidden-sm d-none d-sm-block">
+                {% include 'includes/left_menu.html' %}
+            </div>
+            <div class="col-md-10">
+            	<div class="col-md-12" style="min-height:30px;">
+            		<div class="col-md-6 col-lg-6">
+						{% comment %} <a href="{% url 'student_dashboard' %}" class="btn btn-info btn-sm"><i class="fa fa-desktop"></i> Dashboard</a> {% endcomment %}
+					</div>
+            		<div class="col-md-12 col-lg-12">
+                        <a href="{% url 'change_password' %}" class="btn btn-info btn-sm pull-right"><i class="fa fa-unlock"></i> Password</a>
+                        <a href="{% url 'update_profile' %}" class="btn btn-info btn-sm pull-right"><i class="fa fa-edit"></i> Update</a>
+					</div>
+				</div>
+            	<div class="col-md-12">
+                    <h2>Student Profile </h2>
+				</div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td> Username: </td><td> {{ request.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <td> Opted Exam: </td><td> {{ user.course }}</td>
+                        </tr>
+                        <tr>
+                            <td> Opted Stream: </td><td> {{ user.stream}}</td>
+                        </tr>
+                        <tr>
+                            <td> Student Name: </td><td> {{ user.name}}</td>
+                        </tr>
+                        <tr>
+                            <td> Father Name: </td><td> {{ user.father_name }} </td>
+                        </tr>
+                        <tr>
+                            <td> Email: </td><td> {{ email }} </td>
+                        </tr>
+                        <tr>
+                            <td> Date Of Birth: </td><td> {{ user.dob }} </td>
+                        </tr>
+                        <tr>
+                            <td> Mobile Num: </td><td> {{ user.phone }} </td>
+                        </tr>
+                        <tr>
+                            {% if user.alter_phone %}
+                                <td> Alter Num: </td><td> {{ user.alter_phone }} </td>
+                            {% else %}
+                                <td> Alter Num: </td><td> -- </td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td> Address: </td><td> {{ user.address }} </td>
+                        </tr>
+                        <tr>
+                            <td> State: </td><td> {{ user.state }} </td>
+                        </tr>
+                        <tr>
+                            <td> City: </td><td> {{ user.city }} </td>
+                        </tr>
+                        <tr>
+                            <td> Pin code: </td><td> {{ user.pin_code }} </td>
+                        </tr>
+                        <tr>
+                            <td> Qualification: </td><td> {{ user.qualification }} </td>
+                        </tr>
+                        <tr>
+                            <td> Stream: </td><td> {{ user.streams }} </td>
+                        </tr>
+                        <tr>
+                            <td> College: </td><td> {{ user.college }} </td>
+                        </tr>
+                        <tr>
+                            <td> Year of passing: </td><td> {{ user.yop }} </td>
+                        </tr>
+                        <tr>
+                            <td> % of marks: </td><td> {{ user.percent_marks }} </td>
+                        </tr>
+                        <tr>
+                            <td> Student Photo: </td>
+                            <td>
+                                <div class="nav navbar-nav navbar-right">
+                                    {% if user.photo %}
+                                        <img src="{{ user.photo.url }}" width="150">
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Student Signature: </td>
+                            <td>
+                                <div class="nav navbar-nav navbar-right">
+                                    {% if user.sign %}
+                                        <img src="{{ user.sign.url }}" width="150">
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}

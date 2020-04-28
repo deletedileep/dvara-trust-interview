@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block head %}
+    <title> {{system_settings.system_title}} </title>
+    <meta name="description" content="{{system_settings.system_description}}" />
+    <link rel="canonical" href="//{{ request.get_host }}{{ request.path }}" />
+
+    <style>
+    section.we-offer .heading h1 {
+      color: #fff !IMPORTANT;
+    }
+    </style>
+{% endblock %}
+
+{% block intro %}
+
+<section class="home-slider-main">
+ <div id="home-slider" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    {% for banner_info in banners_data %}
+    <li data-target="#home-slider" data-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>
+    {% endfor %}
+    {% comment %} <li data-target="#home-slider" data-slide-to="1"></li>
+    <li data-target="#home-slider" data-slide-to="2"></li> {% endcomment %}
+  </ul>
+  <div class="carousel-inner">
+      {% for banner_info in banners_data %}
+      <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+        <img src="{{ banner_info.image.url }}" alt="Slide{{forloop.counter0}}" >
+        <div class="carousel-caption d-flex h-100 align-items-center justify-content-center">
+          <div class="container">
+          <h3><span>Learning Today</span> Perfect</h3>
+          <p>{{banner_info.text}}</p>
+          <a href="#" class="btn btn-radius1">Get Started</a>
+        </div>
+        </div>
+      </div>
+      {% endfor %}
+
+
+  </div>
+  <a class="carousel-control-prev" href="#home-slider" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#home-slider" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+  </div>
+
+</section>
+
+<section class="banner-bottomgrid">
+  <div class="container" style="margin: auto auto">
+
+      <div class="content-row">
+        {% if not request.user.is_authenticated %}
+          <div class="left-box">
+            {{ system_settings.system_home_content|safe }}
+          </div>
+          <div class="right-box">
+            <div style="text-align: center;">
+              <a href="{% url 'mockregister' %}" style="display:block;" title="Free Demo Test">Free Demo Test</a><br/>
+              <a href="{% url 'newusesr' %}" style="display:block;" title="Enroll Now">Enroll Now</a><br/>
+              <a href="{% url 'login' %}" style="display:block;" title="Student login">Student login</a>
+            </div>
+          </div>
+        {% else %}
+            {{ system_settings.system_home_content|safe }}
+        {% endif %}
+      </div>
+  </div>
+</section>
+
+<section class="we-offer" style="padding: 10px 0 !important;"">
+  <div class="container-fluid">
+    <div class="heading">
+      <h1>We Offer <span>Online Test Series for</span></h1>
+      <div class="divider"></div>
+    </div>
+    <div class="row">
+              {% for course in courses %}
+                  <div class="col-lg-3 col-md-6">
+                    <div class="we-offer-inner " style="min-height:285px;">
+                      <img src="{{course.course_image.url}}" alt="{{course}}" title="{{course}}" >
+                      <h4><a href="">{{course}}</a></h4>
+                      <ul>
+                        {% for stream in course.streams_set.all.order_by %}
+                          <li><a href="{% url 'packages' stream.stream_slug %}" title="{{course}} {{stream.stream_name}}" class="btn btn-info btn-sm"> {{stream.stream_name}} </a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+              {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- we-offer-close -->
+
+<div class="our_client">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12  text-center heading">
+                    {% if system_settings.system_video_header %}
+                    <h2><span>{{ system_settings.system_video_header }}</span></h2>
+                    <div class="divider"></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                            <div class="span12">
+
+                            <div  class="owl-carousel-box">
+                              {% for video in videos_data %}
+                                <div class="item">
+                                  <div class="blog-boxs">
+                                    <div class="blog-img">
+                                      <div class="padding-img" id="playme" onclick="document.getElementById('youtube').src='https://www.youtube.com/embed/{{video.videoid}}?showinfo=0';revealVideo('video','youtube');" style="cursor:pointer;">
+                                        <a href="javascript:void(0);" class="play-btn"><i class="fa fa-play-circle"></i></a>
+                                        <img src="//img.youtube.com/vi/{{video.videoid}}/default.jpg" alt="{{video.text}}" title="{{video.text}}">
+                                      </div>
+                                    </div>
+                                    <div class="blog-content">
+                                      <div class="text-blog">
+                                        <div class="text-blog-content" style="min-height:250px;">
+                                         <div class="blog-subtitile"><p>Video</p></div>
+                                          <p>{{video.text}}</p>
+                                          {% if video.link %}
+                                          <a href="{{video.link}}">View more <i class="fa fa-chevron-right"></i></a>
+                                          {% endif %}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% if first_group_images.count > 0 or second_group_images.count > 0 %}
+        <!--image-slider-->
+        <section class="client-testimonial-sec" style="margin: -25px 0px !important;padding: 10px 0 !important;border-bottom: 1px solid #ccc;">
+          <div class="container">
+            <div class="heading"><h2>Gallery</h2></div>
+            <div class="row">
+              <div class="col-md-6">
+
+                      <div id="gallery_a" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ul class="carousel-indicators">
+                          {% for image_data in first_group_images %}
+                            <li data-target="#gallery_a" data-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>
+                          {% endfor %}
+                        </ul>
+
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                          {% for image_data in first_group_images %}
+                          <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                            <img src="{{image_data.image.url}}" alt="{{image_data.name}}" title="{{image_data.name}}" width="600" height="390" style="width:100%;height:auto;">
+                            <div class="carousel-caption">
+                              <h3>{{image_data.name}}</h3>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#gallery_a" data-slide="prev">
+                          <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#gallery_a" data-slide="next">
+                          <span class="carousel-control-next-icon"></span>
+                        </a>
+                      </div>
+
+              </div>
+              <div class="col-md-6">
+
+                      <div id="gallery_b" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ul class="carousel-indicators">
+                          {% for image_data in second_group_images %}
+                            <li data-target="#gallery_b" data-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>
+                          {% endfor %}
+                        </ul>
+
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                          {% for image_data in second_group_images %}
+                          <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                            <img src="{{image_data.image.url}}" alt="{{image_data.name}}" title="{{image_data.name}}" width="600" height="390" style="width:100%;height:auto;">
+                            <div class="carousel-caption">
+                              <h3>{{image_data.name}}</h3>
+                            </div>
+                          </div>
+                          {% endfor %}
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#gallery_b" data-slide="prev">
+                          <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#gallery_b" data-slide="next">
+                          <span class="carousel-control-next-icon"></span>
+                        </a>
+                      </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+        {% endif %}
+
+<!--slider-slick-->
+
+    <section class="client-testimonial-sec" style="margin: -25px 0px !important;padding: 10px 0 !important;">
+      <div class="container">
+        <div class="heading"><h2>{% if system_settings.system_testimonials_header %}{{ system_settings.system_testimonials_header }}{% endif %}</h2></div>
+        <div class="slick-carousel">
+
+          {% for testimonial in testimonials_data %}
+          <div>
+            <div class="slick-boxs">
+                <div class="left-div">
+                  <div class="img">
+                    <img src="{{testimonial.image.url}}" alt="{{testimonial.name}}" title="{{testimonial.name}}">
+                  </div>
+                </div>
+                <div class="right-div">
+                    <div class="content">
+                      <p class="quote-img"><i class="fa fa-quote-left"></i></p>
+                      <p class="content-client">
+                        <span>{{testimonial.testimonial}}</span>
+                      </p>
+                      <div class="client-name">
+                        <h2>{{testimonial.name}}</h2>
+                        <p>{{testimonial.designation}}</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+<!--------------------Video-popup-------------------->
+
+<div id="video" class="lightbox" onclick="hideVideo('video','youtube')">
+  <div class="lightbox-container">  
+    <div class="lightbox-content">
+      
+      <button onclick="hideVideo('video','youtube')" class="lightbox-close">
+        Close | ✕
+      </button>
+      <div class="video-container">
+        <iframe id="youtube" width="960" height="540" src="https://www.youtube.com/embed/WsptdUFthWI?showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>      
+      
+    </div>
+  </div>
+</div>
+
+
+<!--------------------Video-popup-------------------->
+
+<!-- jQuery CDN -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!-- slick Carousel CDN -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+<!-- slider-slick -->
+
+<script>
+$('.slick-carousel').slick({
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1, 
+  arrows: true, 
+  dots: true 
+});
+</script>
+
+  <div class="container" >
+      <div class="row">
+      </div>
+  </div><!-- #intro -->
+
+
+{% endblock %}
+
+{% block body %}
+
+{% endblock %}
+
+    {% block jquery %}
+
+
+    {% endblock %}

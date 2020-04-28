@@ -1,0 +1,431 @@
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+/* inline css styles */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	outline: none;
+}
+/*
+table, td, th {
+    border: 1px solid #62D19D;
+}
+*/
+
+
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 1;
+}
+img {
+	border: 0;
+	max-width: 100%;
+}
+p {
+	font-weight: normal;
+	//font-size: 1.5em;
+	//line-height: 1.35em;
+	//color: #454545;
+}
+ul {
+	font-size: 2.1em;
+	line-height: 1.4em;
+	margin-bottom: 15px;
+	color: #444;
+	font-weight: normal;
+	font-family: 'Arbutus Slab', Arial, sans-serif;
+}
+ .content {
+	width: 1100px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+.content {
+	margin-top:2.5%;
+	min-height: 80%;
+	//position:absolute;
+	//bottom:0px;
+	//height: auto !important;
+	//height: 100%;
+	//margin: 0 auto -4em;
+}
+.content > p {
+	margin:10px 0 30px;
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:1.8em;
+}
+/*footer*/
+#footer, .push {
+	border-top:1px dashed #b7b4a3;
+	margin-top: 70px;
+	background-color:#ffffff;
+	height:4em;
+	margin-left:25px;
+	margin-right:45px;
+	float: bottom;
+	clear: both;
+}
+
+/*----- shadow #01 -----*/
+#menu {
+	//margin:0;
+	//padding:0;
+
+	position: fixed;
+	height: 3em;
+	width: 100%;
+	top: 0;
+	left: 0;
+	color:#55665f;
+	line-height: 3em;
+	border-bottom: 3px solid #62D19D;
+	background: #fff;
+	-moz-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+	-webkit-box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+	box-shadow: 0 2px 3px 0px rgba(0, 0, 0, 0.16);
+	z-index: 999999;
+}
+#menu h1 {
+    color: #66776f;
+    font-weight: 500;
+    height: inherit;
+    left: 1.25em;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+}
+#menu .w{
+    top: 0;
+    position: absolute;
+    right: 1.35em;
+    vertical-align: middle;
+}
+#menu .w img{
+width:24;
+height:24;
+margin-top:-0.5em;
+}
+#menu ul {
+	margin:0;
+	padding:0;
+	line-height:20px;
+}
+#menu li {
+	margin:0;
+	padding:0;
+	list-style:none;
+	float:left;
+	position:relative;
+	}
+#menu li {
+	margin:0;
+	padding:0;
+	list-style:none;
+	float:left;
+	position:relative;
+	}
+
+#navMenu ul li a {
+	text-align:center;
+	font-family:arial;
+	text-decoration:none;
+	display:block;
+	color:#000;
+}
+#menu .w ul li{
+display:inline;
+font-size:21px;
+font-style:bold;
+padding:10px;
+//width:65px;
+font-family:'Times New Roman';
+}
+#menu .w ul li ul li{
+display:block;
+font-size:20px;
+font-style:bold;
+background:#fff;
+border-bottom: 1px solid #62D19D;
+width:150px;
+}
+#menu .w ul ul{
+	position:absolute;
+	visibility:hidden;
+	top:33px;
+} 
+#menu .w ul li:hover ul{
+visibility:visible;
+} 
+
+ .active a{
+color:red;
+
+}a{
+color:black;
+text-decoration:none;}
+a:hover{
+text-decoration:none;
+color:red;
+}:active{outline:medium;}
+
+html { height: 100%; font-size: 62.5% }
+
+body {
+ height: 100%;
+ background-color: #FFFFFF;
+ font: 1.2em Verdana, Arial, Helvetica, sans-serif;
+ }
+
+#side_content {
+	overflow: auto;
+	//overflow-x: hidden;
+	fload:left;
+	position: fixed;
+	top: 55px;
+	bottom: 0px;
+	right: 20px;
+	width: 230px;
+	height: 88%;
+}
+
+/* ==================== Footer style sheet ==================== */
+
+.footer-line{
+  margin-top: 20px;
+  border: 100%;
+  width: 51%;
+  border-top: 1px solid #006600;
+}
+//hr {
+  width: 60%;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #006600;
+    margin: 1em 0;
+    padding: 0;
+}
+/* ==================== form style sheet ==================== */
+
+/* Basics */
+
+
+html, body {
+	width: 100%;
+	height: 100%;
+	background: #FFFFFF;
+	margin:0;
+}
+
+#lower {
+	\\background: #ecf2f5;
+	width: 100%;
+	height: 39px;
+	margin-top: 10px;
+	\\box-shadow: inset 0 1px 1px #fff;
+	\\border-top: 1px solid #ccc;
+	\\border-bottom: 1px solid #ccc;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+#lover, input[type=checkbox] {
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.question, .form-group {
+    width: 80%;
+    margin-bottom: 20px;
+}
+/* ==================== Buttons style sheet ==================== */
+
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	.button {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		-o-appearance: none;
+		-ms-appearance: none;
+		appearance: none;
+		-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-o-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+		background-color: #192420;
+		border-radius: 0px;
+		border: 0;
+		color: #ffffff !important;
+		cursor: pointer;
+		display: inline-block;
+		font-weight: 300;
+		//text-transform: uppercase;
+		letter-spacing: 0.125em;
+		font-size: 0.9em;
+		height: 2.85em;
+		line-height: 2.85em;
+		padding: 0 1.75em;
+		text-align: center;
+		text-decoration: none;
+		white-space: nowrap;
+		text-indent: 0.25em;
+	}
+
+		input[type="submit"]:hover,
+		input[type="reset"]:hover,
+		input[type="button"]:hover,
+		.button:hover {
+			background-color: #23332d;
+		}
+
+		input[type="submit"]:active,
+		input[type="reset"]:active,
+		input[type="button"]:active,
+		.button:active {
+			background-color: #0f1513;
+		}
+
+		input[type="submit"].icon,
+		input[type="reset"].icon,
+		input[type="button"].icon,
+		.button.icon {
+			padding-left: 1.35em;
+		}
+
+			input[type="submit"].icon:before,
+			input[type="reset"].icon:before,
+			input[type="button"].icon:before,
+			.button.icon:before {
+				margin-right: 0.5em;
+			}
+
+		input[type="submit"].fit,
+		input[type="reset"].fit,
+		input[type="button"].fit,
+		.button.fit {
+			display: block;
+			margin: 0 0 1em 0;
+			width: 100%;
+		}
+
+		input[type="submit"].small,
+		input[type="reset"].small,
+		input[type="button"].small,
+		.button.small {
+			font-size: 0.7em;
+		}
+
+		input[type="submit"].big,
+		input[type="reset"].big,
+		input[type="button"].big,
+		.button.big {
+			font-size: 1.2em;
+			height: 2.65em;
+			line-height: 2.65em;
+		}
+
+		input[type="submit"].alt,
+		input[type="reset"].alt,
+		input[type="button"].alt,
+		.button.alt {
+			background-color: transparent;
+			box-shadow: inset 0 0 0 1px rgba(144, 144, 144, 0.25);
+			color: #66776f !important;
+		}
+
+			input[type="submit"].alt:hover,
+			input[type="reset"].alt:hover,
+			input[type="button"].alt:hover,
+			.button.alt:hover {
+				background-color: rgba(144, 144, 144, 0.075);
+			}
+
+			input[type="submit"].alt:active,
+			input[type="reset"].alt:active,
+			input[type="button"].alt:active,
+			.button.alt:active {
+				background-color: rgba(144, 144, 144, 0.2);
+			}
+
+			input[type="submit"].alt.icon:before,
+			input[type="reset"].alt.icon:before,
+			input[type="button"].alt.icon:before,
+			.button.alt.icon:before {
+				color: #bbb;
+			}
+
+		input[type="submit"].special,
+		input[type="reset"].special,
+		input[type="button"].special,
+		.button.special {
+			background-color: #62D19D;
+			color: #ffffff !important;
+		}
+
+			input[type="submit"].special:hover,
+			input[type="reset"].special:hover,
+			input[type="button"].special:hover,
+			.button.special:hover {
+				background-color: #76d7a9;
+			}
+
+			input[type="submit"].special:active,
+			input[type="reset"].special:active,
+			input[type="button"].special:active,
+			.button.special:active {
+				background-color: #4ecb91;
+			}
+
+		input[type="submit"].disabled, input[type="submit"]:disabled,
+		input[type="reset"].disabled,
+		input[type="reset"]:disabled,
+		input[type="button"].disabled,
+		input[type="button"]:disabled,
+		.button.disabled,
+		.button:disabled {
+			background-color: #55665f !important;
+			box-shadow: inset 0 -0.15em 0 0 rgba(0, 0, 0, 0.15);
+			color: #fff !important;
+			cursor: default;
+			opacity: 0.25;
+		}
+/* ==================== Form style sheet ==================== */
+
+
+
+.radio {display:inline;}
+
+/* ==================== Form style sheet END ==================== */
+
+label { float:middle; clear:none; display:inline; padding: 0px 0em 1 0; }
+
+<!--[if IE]>
+
+/* ==================== Form style sheet for IE ==================== */
+fieldset { padding: 22px 17px 12px 17px; position: relative; margin: 12px 0 34px 0; }
+legend { position: absolute; top: -12px; left: 10px; }
+label.float { margin: 5px 0 0 0; }
+label { margin: 0 0 5px 0; }
+label.spam-protection { display: inline; width: auto; position: relative; top: -3px; }
+input.choose { border: 0; margin: 0; }
+input.submit-button { margin: -10px 0 0 0; }
+/* ==================== Form style sheet for IE end ==================== */
+<![endif]-->

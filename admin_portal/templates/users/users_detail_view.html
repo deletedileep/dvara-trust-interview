@@ -1,0 +1,117 @@
+{% extends "base1.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+        <div class="row ">
+            <div class="col-md-12">
+                {% bootstrap_messages messages %}
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h4>User Details</h4>
+                </div>
+                <div class="col-md-6">
+                    <a class="btn btn-success btn-info btn-sm pull-right" href="{% url 'users_list_view' %}"><i class="fa fa-eye"></i> View All</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="table-responsive">
+
+                            {% if users_data %}
+                                <table id="datatable" class="table table-sripped table-bordered">
+                                    <thead>
+                                        <th></th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Username</td>
+                                                <td>{{ users_data.username }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>{{ users_data.email }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Full Name</td>
+                                                <td>{{ users_data.first_name }} {{ users_data.last_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last Login</td>
+                                                <td>{{ users_data.last_login }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Joined On</td>
+                                                <td>{{ users_data.date_joined }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Admin/Staff</td>
+                                                {% if users_data.is_staff %}
+                                                    <td>Yes</td>
+                                                {% else %}
+                                                    <td>No</td>
+                                                {% endif %}
+                                            </tr>
+                                            <tr>
+                                                <td>Status</td>
+                                                {% if users_data.is_active %}
+                                                    <td>Active</td>
+                                                {% else %}
+                                                    <td>Inactive</td>
+                                                {% endif %}
+                                            </tr>
+                                            <tr>
+                                                <td>Parent</td>
+                                                <td>{{ users_data.userdetails.parent }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobile</td>
+                                                <td>{{ users_data.userdetails.phone }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address</td>
+                                                <td>{{ users_data.userdetails.address }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>State</td>
+                                                <td>{{ users_data.userdetails.state }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>City</td>
+                                                <td>{{ users_data.userdetails.city }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>pin code</td>
+                                                <td>{{ users_data.userdetails.pin_code }}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p>No User Data not available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(document).ready(function() {
+            $('.modal').modal({
+                ready: function(modal, trigger) {
+                    $(modal).find('#ok').attr('href', $(trigger).data('href'));
+                    $(modal).find('#user-name').text($(trigger).data('username'));
+                }
+            });
+            $("#cancel").click(function() {
+                $('#confirm-delete').modal('close');
+            });
+        });
+    </script>
+{% endblock %}

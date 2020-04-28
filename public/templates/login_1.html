@@ -1,0 +1,73 @@
+{% extends 'base.html' %}{% load bootstrap4 %}{% load static %}
+
+{% block head %}
+    <title> Login - {{system_settings.system_title}}</title>
+    <style>
+    label{
+        display:block;
+        color:black;
+        float: none !important;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="container">
+    <div class="conent" >
+            <div class="row">
+                <div class="col-md-12">
+                    {% bootstrap_messages messages %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {% if system_settings.system_login %}
+                        <div class="sign-sec" style="background-image:{{ system_settings.system_login.url }}">
+                            <img src="{{ system_settings.system_login.url }}" title="Login Banner" />
+                            {% comment %} <h3>Welcome Back!</h3>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <a href="{% url 'newusesr' %}">SIGN UP</a> {% endcomment %}
+                        </div>
+                    {% else %}
+                        <div class="sign-sec" style="background-image:{% static 'student/images/vani_gate_online.jpg' %}">
+                            <img src="{% static 'student/images/vani_gate_online.jpg' %}" alt="Login Banner" />
+                            {% comment %} <h3>Welcome Back!</h3>
+                            <p>To keep connected with us please login with your personal info</p>
+                            <a href="{% url 'newusesr' %}">SIGN UP</a> {% endcomment %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <div class="box col-sign-box" style="background-color: white;">
+                        <div class="box-header">
+                            <h3>You can login here!</h3>
+                            <form method="post" id="login_form" class="form">
+                                {% csrf_token %}
+                                {% bootstrap_form form %}
+                                <div class="form-group pull-right">
+                                    <a href="{% url 'password_reset' %}" title="Forget Password">Forget Password</a>
+                                </div>
+                                <div class="form-group">
+                                    {% if request.GET.next and request.GET.next is not None %}
+                                    <input type="hidden" name="next" value="{{request.GET.next}}" />
+                                    {% else %}
+                                    <input type="hidden" name="next" value="/dashboard" />
+                                    {% endif %}
+                                    <button type="submit" class="btn btn-success" > Login </button>
+                                </div>
+                            </form><br>
+                            <h5>Click here to register! <a href="{% url 'newusesr' %}" class="btn btn-info btn-sm" title="New Registration">New Registration </a> </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+{% endblock %}
+
+
+    {% block jquery %}
+    <script type="text/javascript">
+        $("#login_form").validate({});
+    </script>
+    {% endblock %}

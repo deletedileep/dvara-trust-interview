@@ -1,0 +1,225 @@
+{% extends "base1.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+   <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{% url 'system_settings_view' %}" class="btn btn-success pull-right">View Settings</a>
+            </div>
+            <div class="col-md-12">
+
+            </div>
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <center><h1>{{view_title}}</h1></center>
+                        <div class="col-md-6 col-md-offset-3">
+                            {% if form_p %}
+                                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                                <form method="POST" enctype="multipart/form-data" class="form" id="exam_form">
+                                    {% csrf_token %}
+                                    {% bootstrap_form form_p %}
+                                    <div class="fixed-action-btn">
+                                        <button type="submit" name="_submit" class="btn btn-success">Submit</button>
+                                        <a class="btn btn-info" data-toggle="modal" data-target="#smsModal" >Test <i class="fa fa-send-o"></i></a>
+                                        <a href="{% url 'system_settings_view' %}" class="btn btn-danger">Cancel</a>
+                                    </div>
+                                </form>
+                            {% else %}
+                                <p>The Exam could not be found.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="smsModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Send Test SMS</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label for="mobile">Mobile Numbers:(, Seperated)</label>
+                <textarea class="form-control" name="mobile" id="mobile" >9985994998</textarea>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea class="form-control" name="message" id="message" >This is testing message on {% now "jS F Y H:i" %} From {{ request.META.HTTP_HOST }}</textarea>
+            </div>
+            <div class="form-group">
+                <h3>URL</h3>
+                <textarea id="url_dev" class="form-control" rows="4"></textarea>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <h3>Response</h3>
+                <div id="response_dev">
+                </div>
+                <iframe src="" style="width: 100%;" id="iframe_id"></iframe>
+            </div>
+            <hr/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="button" name="test" class="btn btn-warning send_test_sms" value="Send SMS">
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- /Modal -->
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#exam_form").validate();
+        });
+    </script>
+
+    <script type="text/javascript">
+        var unsaved = false;
+        $(":input, textarea").change(function(){
+            unsaved = true;
+        });
+        function unloadPage(){
+            if(unsaved){
+                return "You have unsaved changes on this page.\nDo you want to leave this page and discard your changes or stay on this page?";
+            }
+        }
+        function getUrlVars(full_url)
+        {
+            var vars = [], hash;
+            var hashes = full_url.slice(full_url.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                // vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+        $(document).ready(function(){
+            window.onbeforeunload = unloadPage;
+            $("#sms_gateway_form").validate({});
+
+            $('#submit').click(function(){
+                unsaved = false;
+            });
+            $('#id_system_sms_url').change(function(){
+                var domain_full_url = $(this).val();
+                if(domain_full_url!=='' && domain_full_url.includes('?')){
+                    console.log(domain_full_url);
+                    console.log(domain_full_url.split('?')[0]);
+                    var all_vars = getUrlVars(domain_full_url);
+                    console.log(jQuery.type(all_vars));
+                    console.log(all_vars['username']);
+                    console.log(all_vars);
+                    console.log(all_vars.length);
+                    console.log(Object.keys(all_vars).length);
+                    jQuery.each(Object.keys(all_vars), function(propName, propVal) {
+                        console.log(propName,propVal);
+                        if(propVal.toLowerCase().includes('user') || propVal.toLowerCase().startsWith("us")){
+                            var username_var = propVal;
+                            $("#id_system_sms_username_var").val(username_var);
+                            $("#id_system_sms_username").val(all_vars[username_var]);
+                        }else if(propVal.toLowerCase().includes('pass') || propVal.toLowerCase().startsWith("pa")){
+                            var password_var = propVal;
+                            $("#id_system_sms_password_var").val(password_var);
+                            $("#id_system_sms_password").val(all_vars[password_var]);
+                        }else if(propVal.toLowerCase().includes('mobile') || propVal.toLowerCase().includes('phone') || propVal.toLowerCase().startsWith("to") || propVal.toLowerCase().startsWith("pho") || propVal.toLowerCase().startsWith("mob")){
+                            var mobile_var = propVal;
+                            $("#id_system_sms_mobile_var").val(mobile_var);
+                        }else if(propVal.toLowerCase().includes('message') || propVal.toLowerCase().includes('text') || propVal.toLowerCase().includes('msg') || propVal.toLowerCase().startsWith("mess")){
+                            var message_var = propVal;
+                            $("#id_system_sms_message_var").val(message_var);
+                        }else if(propVal.toLowerCase().includes('sender') || propVal.toLowerCase().includes('from') || propVal.toLowerCase().startsWith("sende")){
+                            var senderid_var = propVal;
+                            $("#id_system_sms_senderid_var").val(senderid_var);
+                            $("#id_system_sms_senderid").val(all_vars[senderid_var]);
+                        }else if(propVal.toLowerCase().includes('type') || propVal.toLowerCase().includes('typ') || propVal.toLowerCase().includes('route') || propVal.toLowerCase().startsWith("rout")){
+                            var type_var = propVal;
+                            $("#id_system_sms_type_var").val(type_var);
+                            $("#id_system_sms_type_val").val(all_vars[type_var]);
+                        }
+                        console.log(all_vars[propVal]);
+                    });
+                    $("#id_system_sms_domain").val(domain_full_url.split('?')[0]);
+                    //
+                }
+            });
+            $('.send_test_sms').click(function(){
+                var url = $("#id_system_sms_domain").val();
+                var username = $("#id_system_sms_username").val();
+                var password = $("#id_system_sms_password").val();
+                var senderid = $("#id_system_sms_senderid").val();
+                var username_var = $("#id_system_sms_username_var").val();
+                var password_var = $("#id_system_sms_password_var").val();
+                var senderid_var = $("#id_system_sms_senderid_var").val();
+                var mobile_var = $("#id_system_sms_mobile_var").val();
+                var message_var = $("#id_system_sms_message_var").val();
+                var type_var = $("#id_system_sms_type_var").val();
+                var type_val = $("#id_system_sms_type_val").val();
+                var other_var = $("#id_system_sms_other_var").val();
+                var other_val = $("#id_system_sms_other_val").val();
+                if(username_var==''){
+                    username_var = 'username';
+                    $("#id_system_sms_username_var").val('username');
+                }
+                if(password_var==''){
+                    password_var = 'password';
+                    $("#id_system_sms_password_var").val('password');
+                }
+                if(senderid_var==''){
+                    senderid_var = 'sender';
+                    $("#id_system_sms_senderid_var").val('sender');
+                }
+                if(mobile_var==''){
+                    mobile_var = 'mobile';
+                    $("#id_system_sms_mobile_var").val('mobile');
+                }
+                if(message_var==''){
+                    message_var = 'message';
+                    $("#id_system_sms_message_var").val('message');
+                }
+                var mobile = $("#mobile").val();
+                var message = $("#message").val();
+
+                var sms_api_url = url+'?'+username_var+'='+encodeURIComponent(username)+'&'+password_var+'='+encodeURIComponent(password)+'&'+senderid_var+'='+encodeURIComponent(senderid)+'&'+mobile_var+'='+encodeURIComponent(mobile)+'&'+message_var+'='+encodeURIComponent(message)+'&';
+                if(type_var!=='' && type_val!==''){
+                    sms_api_url += type_var+'='+encodeURIComponent(type_val)+'&';
+                }
+                if(other_var!=='' && other_val!==''){
+                    sms_api_url += other_var+'='+encodeURIComponent(other_val)+'&';
+                }
+                $("#url_dev").html(sms_api_url);
+                $("#iframe_id").attr("src",sms_api_url);
+
+                /*$.ajax({ type: "GET",
+                    url: sms_api_url,
+                    async: false,
+                    success : function(text)
+                    {
+                        console.log(text);
+                        $("#id_system_sms_response_dev").html(text);
+                    }
+                });*/
+            });
+        });
+        $(document).ready(function() {
+        });
+    </script>
+{% endblock %}

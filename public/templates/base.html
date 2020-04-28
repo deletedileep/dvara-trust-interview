@@ -1,0 +1,200 @@
+{% load static %}{% load bootstrap4 %}<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<!-- Favicons -->
+{% if system_settings.system_favicon %}
+	<link href="{{ system_settings.system_favicon.url }}" rel="icon">
+{% else %}
+	<link href="{% static 'student/img/favicon.ico' %}" rel="icon">
+{% endif %}{% if system_settings.system_shareicon %}
+	<link href="{{ system_settings.system_shareicon.url }}" rel="apple-touch-icon">
+{% else %}
+	<link href="{% static 'student/img/favicon.ico' %}" rel="apple-touch-icon">
+{% endif %}
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+	<!-- Bootstrap CSS File -->
+	<link href="{% static 'student/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+	<!-- Libraries CSS Files -->
+	<link href="{% static 'student/lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+	<link href="{% static 'student/lib/animate/animate.min.css' %}" rel="stylesheet">
+	<link href="{% static 'student/lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+	<link href="{% static 'student/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+	<link href="{% static 'student/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+	<link href="{% static 'student/css/argon-dashboard.css' %}?v=1.5" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.css">
+	<!-- Main Stylesheet File -->
+	<link href="{% static 'student/css/style.css' %}?v=1.5" rel="stylesheet">
+	{{system_settings.system_analytics|safe}}
+	{% block head %}
+		<meta charset="UTF-8">
+		<title>{{system_settings.system_title}}</title>
+		<meta content="{{system_settings.system_description}}" >
+	{% endblock %}
+	<style type="text/css">
+		section.we-offer .heading h1 {
+				color: #fff !IMPORTANT;
+		}
+		.error{
+			color: red;
+		}
+		.btn-info {
+			color: #fff !important;
+		}
+		.sqr_btn {
+				font-size: 14px;
+				padding: 10px 20px !important;
+				display: inline-block;
+				text-transform: capitalize;
+				border-radius: 5px;
+				margin: 0px 3px;
+		}
+		.blue_btn{
+			  background: #007bff;
+				background-color: #007bff !important;
+		    color: #fff;
+		}
+		.orng_btn{
+				background: #fea000;
+				background-color: #fea000 !important;
+		    color: #fff;
+		}
+		@media all and (max-width: 600px)
+		{
+				/* styles here */
+				::-webkit-scrollbar {
+						width: 1.2em;
+						height: 1.2em
+				}
+				::-webkit-scrollbar-button {
+						background: #aaa
+				}
+				::-webkit-scrollbar-track-piece {
+						background: #ccc
+				}
+				::-webkit-scrollbar-thumb {
+						background: #000
+				}​
+		}
+
+		/*
+		::-webkit-scrollbar {
+				width: 20px;
+		}
+		::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,5,60,0.3);
+				border-radius: 5px;
+		}
+		::-webkit-scrollbar-thumb {
+				border-radius: 24px;
+				-webkit-box-shadow: inset 0 0 6px rgba(0,120,180,0.8);
+		}
+		*/
+	</style>
+
+</head>
+<body>
+
+	{% include 'includes/logo_menu.html' %}
+
+
+    {% block intro %}
+    {% endblock %}
+
+	<main id="main" style="margin-top: 10px;">
+    {% block body %}
+    {% endblock %}
+	</main>
+
+	{% include 'includes/footer.html' %}
+
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+	<!-- Uncomment below i you want to use a preloader -->
+	<!-- <div id="preloader"></div> -->
+
+	<!-- JavaScript Libraries -->
+	<script src="{% static 'student/lib/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'student/lib/jquery/jquery-migrate.min.js' %}"></script>
+	<script src="{% static 'student/lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'student/lib/easing/easing.min.js' %}"></script>
+	<script src="{% static 'student/lib/mobile-nav/mobile-nav.js' %}"></script>
+	<script src="{% static 'student/lib/wow/wow.min.js' %}"></script>
+	<script src="{% static 'student/lib/waypoints/waypoints.min.js' %}"></script>
+	<script src="{% static 'student/lib/counterup/counterup.min.js' %}"></script>
+	<script src="{% static 'student/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'student/lib/isotope/isotope.pkgd.min.js' %}"></script>
+	<script src="{% static 'student/js/jquery.validate.min.js' %}"></script>
+
+	<!-- Template Main Javascript File -->
+	<script src="{% static 'student/js/main.js' %}"></script>
+<script>
+        $(document).ready(function() {
+            var owl = $("#owl-demo1");
+            owl.owlCarousel({
+                items: 3, //10 items above 1000px browser width
+                itemsDesktop: [1000, 3], //5 items between 1000px and 901px
+                itemsDesktopSmall: [900, 2], // 3 items betweem 900px and 601px
+                itemsTablet: [600, 1], //2 items between 600 and 0;
+                itemsMobile: [360, 1] // itemsMobile disabled - inherit from itemsTablet option
+            });
+            // Custom Navigation Events
+            $(".next").click(function() {
+                owl.trigger('owl.next');
+            })
+            $(".prev").click(function() {
+                owl.trigger('owl.prev');
+            })
+            $(".play").click(function() {
+                owl.trigger('owl.play', 1000);
+            })
+            $(".stop").click(function() {
+                owl.trigger('owl.stop');
+            })
+
+        });
+</script>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("header");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky-header");
+  } else {
+    header.classList.remove("sticky-header");
+  }
+}
+</script>
+
+<!-- video popup- js -->  
+<script>
+  // Function to reveal lightbox and adding YouTube autoplay
+function revealVideo(div,video_id) {
+  var video = document.getElementById(video_id).src;
+  document.getElementById(video_id).src = video+'&autoplay=1'; // adding autoplay to the URL
+  document.getElementById(div).style.display = 'block';
+}
+
+// Hiding the lightbox and removing YouTube autoplay
+function hideVideo(div,video_id) {
+  var video = document.getElementById(video_id).src;
+  var cleaned = video.replace('&autoplay=1',''); // removing autoplay form url
+  document.getElementById(video_id).src = cleaned;
+  document.getElementById(div).style.display = 'none';
+}
+</script>
+<!-- video popup- js --> 
+    {% block jquery %}
+    {% endblock %}
+
+</body>
+</html>
